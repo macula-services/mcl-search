@@ -17,14 +17,19 @@
 %% The health probe mcl_search_service:health/0 calls, and the boot check.
 -export([searxng_health/0, searxng_url/0]).
 %% Exported for mesh-free unit tests.
--export([validate_query/1, clamp_limit/1, decode_results/1]).
+-export([validate_query/1, clamp_limit/1, decode_results/1, fetch_timeout_ms/0]).
 
 -include_lib("kernel/include/logger.hrl").
 
 -define(DEFAULT_MAX_RESULTS, 10).
 -define(HARD_MAX_RESULTS, 25).
 -define(MAX_QUERY_BYTES, 512).
--define(FETCH_TIMEOUT, 10000).
+%% Longer than SearXNG's own longest wait (`max_request_timeout', 15 s in
+%% deploy/searxng-settings.yml and on the fleet): SearXNG answers when its
+%% slowest engine does or its timeout ends, and a fetch that gave up first
+%% turned every query with one slow engine into search_unavailable. A caller's
+%% CALL deadline must allow for it.
+-define(FETCH_TIMEOUT, 20000).
 -define(CONNECT_TIMEOUT, 5000).
 -define(UA, "mcl-search/0.1 (+https://github.com/macula-services/mcl-search)").
 
@@ -58,6 +63,10 @@ replied({ok, Results}, Limit, State) ->
 replied({error, Why}, _Limit, State) ->
     ?LOG_WARNING("mcl-search: web_search unavailable: ~p", [Why]),
     {error, search_unavailable, State}.
+
+%% @doc How long a fetch waits for SearXNG.
+-spec fetch_timeout_ms() -> pos_integer().
+fetch_timeout_ms() -> ?FETCH_TIMEOUT.
 
 %% @doc A blank query would ask SearXNG for everything, and an over-length one
 %% is someone testing limits, not searching. Both are refused before any HTTP

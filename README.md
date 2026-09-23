@@ -12,6 +12,10 @@ a bounded, shaped list of results:
 |---------|-------|
 | `query` (required, 1 to 512 bytes), `limit` (optional, default 10, capped at 25) | `results`: a list of `title`, `url`, `content`, `engine`, each CBOR text |
 
+SearXNG answers when its slowest engine does, up to its own
+`max_request_timeout` (15 s), so a search can take that long and the service
+waits up to 20 s for it. Give the CALL a deadline of 25 s or more.
+
 A refusal comes back as the call's error: `invalid_query` for a blank, missing
 or over-long query, `search_unavailable` when SearXNG cannot answer (the reason
 goes to the service's log), and `unauthorized`, from macula itself, for a caller

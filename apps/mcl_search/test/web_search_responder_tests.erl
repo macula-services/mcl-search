@@ -101,3 +101,30 @@ an_unreachable_searxng_is_search_unavailable_test() ->
     after
         application:unset_env(mcl_search, searxng_url)
     end.
+
+%%====================================================================
+%% The fetch outlasts SearXNG's own wait
+%%====================================================================
+
+%% SearXNG answers once its slowest engine replies or its own timeout ends, up
+%% to `max_request_timeout'. A fetch that gives up first turns every query with
+%% one slow engine into search_unavailable, and that is exactly what happened
+%% against the fleet's SearXNG, which took 10.0 s per such query against a 10 s
+%% fetch. The fetch must outlast SearXNG's longest wait, with room to send the
+%% reply.
+the_fetch_outlasts_searxngs_longest_wait_test() ->
+    {ok, Text} = file:read_file(alongside("deploy/searxng-settings.yml")),
+    {match, [Max]} = re:run(Text, "^\\s*max_request_timeout:\\s*([0-9.]+)",
+                            [multiline, {capture, all_but_first, list}]),
+    SearxngMs = round(list_to_float(Max) * 1000),
+    ?assert(?H:fetch_timeout_ms() >= SearxngMs + 5000).
+
+alongside(Name) -> climb(filename:dirname(code:which(?MODULE)), Name, 8).
+
+climb(_Dir, Name, 0) -> Name;
+climb(Dir, Name, Left) ->
+    Candidate = filename:join(Dir, Name),
+    found(filelib:is_regular(Candidate), Candidate, Dir, Name, Left).
+
+found(true, Candidate, _Dir, _Name, _Left) -> Candidate;
+found(false, _Candidate, Dir, Name, Left) -> climb(filename:dirname(Dir), Name, Left - 1).

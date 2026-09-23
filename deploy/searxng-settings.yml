@@ -1,12 +1,12 @@
-# SearXNG settings for LOCAL DEVELOPMENT ONLY -- see README's "Running it
-# against a real SearXNG" section for how this gets used.
+# SearXNG settings for LOCAL DEVELOPMENT ONLY (see the README).
 #
-# The real, deployed instance (macula-demo/infrastructure) has its own
-# settings.yml with a genuinely random secret_key kept out of git, seeded
-# once out of band as a 0600 file -- same convention every other secret
-# on this fleet follows. The value below is deliberately an obvious
-# placeholder, safe to commit: this file is never used for anything but
-# a throwaway local container.
+# The fleet's instance on beam03 keeps its own settings.yml, with a real random
+# secret_key that is not in git. The secret_key below is an obvious placeholder,
+# safe to commit, because this file only ever configures a throwaway local
+# container.
+#
+# max_request_timeout matters to mcl-search: the service's fetch must outlast
+# it, and a test compares the two.
 
 use_default_settings: true
 
