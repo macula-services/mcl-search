@@ -1,9 +1,7 @@
 %% @doc Supervises this service's own processes.
 %%
-%% NO CHILDREN AS GENERATED, and an empty child list is the honest scaffold
-%% rather than a placeholder. There is nothing to supervise yet, and a worker
-%% that ticks and does nothing is how a codebase ends up carrying an empty
-%% heartbeat for a year.
+%% NO CHILDREN. macula_response spawns a responder per call, and nothing is
+%% kept between calls, so the service itself has nothing to run.
 -module(mcl_search_sup).
 
 -behaviour(supervisor).

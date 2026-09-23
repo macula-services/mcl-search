@@ -83,3 +83,6 @@ jobs:
           echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"
       - run: rebar3 lint
       - run: rebar3 eunit
+      # dialyzer gates beside the tests: it is what notices the responder and
+      # the member gate drifting from the macula and mcl_om contracts they use.
+      - run: rebar3 dialyzer

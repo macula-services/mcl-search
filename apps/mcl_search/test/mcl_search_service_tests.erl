@@ -55,14 +55,41 @@ info_version_matches_the_application_test() ->
     #{version := Reported} = ?SERVICE:info(),
     ?assertEqual(list_to_binary(Vsn), Reported).
 
-health_is_green_test() ->
-    ?assertEqual(ok, ?SERVICE:health()).
+%% health/0 is a real probe of SearXNG, so its verdict depends on whether one
+%% is reachable while this runs. Only the shape is asserted here: `ok' or
+%% `{degraded, _}', never a crash. test_live/ covers a real SearXNG.
+health_returns_the_documented_shape_test() ->
+    ?assert(is_documented_health_shape(?SERVICE:health())).
 
-%% An empty list is the correct answer for a service that does nothing yet. The
-%% assertion is here so that adding a capability breaks a test and makes someone
-%% write down what the service can now actually do.
-announces_no_capability_yet_test() ->
-    ?assertEqual([], ?SERVICE:capabilities()).
+is_documented_health_shape(ok) -> true;
+is_documented_health_shape({degraded, _Reason}) -> true;
+is_documented_health_shape(_Other) -> false.
+
+%% SEARXNG_URL has no default. A node without one refuses to start rather than
+%% boot green and fail every search.
+start_refuses_without_a_searxng_url_test() ->
+    application:unset_env(?APP, searxng_url),
+    ?assertError({searxng_url, unconfigured}, ?SERVICE:start(#{})).
+
+%% One procedure, `mcl-search/web_search' (the org comes from config), answered
+%% by a macula_response handler. Its member gate is web_search_member_gate_tests'
+%% business. Adding a second procedure breaks this and makes someone write down
+%% what the service can now do.
+announces_web_search_only_test() ->
+    application:set_env(macula, crypto_profile, pq_hybrid),
+    application:set_env(mcl_om, realm, binary:copy(<<"ab">>, 32)),
+    {ok, Realm} = macula_node_keys:generate(realm, pq_hybrid, #{}),
+    application:set_env(mcl_om, realm_key,
+                        binary:encode_hex(macula_node_keys:public_key(Realm), lowercase)),
+    try
+        ?assertMatch([#{name := <<"web_search">>, version := 1,
+                        handler := {web_search_responder, []},
+                        auth := {realm_member_required, <<_:256>>, <<"member/email-verified">>}}],
+                     ?SERVICE:capabilities())
+    after
+        [application:unset_env(A, K) || {A, K} <- [{macula, crypto_profile}, {mcl_om, realm},
+                                                   {mcl_om, realm_key}]]
+    end.
 
 identity_spec_has_the_shape_mcl_om_expects_test() ->
     #{scope := Scope, actions := Actions,
@@ -72,12 +99,10 @@ identity_spec_has_the_shape_mcl_om_expects_test() ->
     ?assert(is_list(Resources)),
     ?assert(is_integer(Ttl) andalso Ttl > 0).
 
-%% A resource this service is not authorised for is a publish the realm would
-%% refuse once UCAN delegation lands. Asking for nothing and claiming nothing
-%% must stay in step, so the two are asserted together.
-authority_matches_what_is_announced_test() ->
+%% The authority is for topics published and subscribed to, and mcl-search does
+%% neither: web_search is a CALL, served under its own D25 provider grant.
+asks_the_realm_for_no_topic_authority_test() ->
     #{actions := Actions, resources := Resources} = ?SERVICE:identity_spec(),
-    ?assertEqual([], ?SERVICE:capabilities()),
     ?assertEqual([], Actions),
     ?assertEqual([], Resources).
 

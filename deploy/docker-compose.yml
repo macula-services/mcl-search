@@ -7,6 +7,7 @@
 #     MCL_REALM_KEY=<hex of the realm's public signing key> \
 #     MACULA_STATION_SEEDS=station.example:4433 \
 #     MACULA_STATION_NODE_IDS=<64-hex node id of that station> \
+#     SEARXNG_URL=http://127.0.0.1:8888 \
 #     docker compose -p mcl-search -f deploy/docker-compose.yml up -d
 #
 # IF YOU DEPLOY THROUGH SOMETHING ELSE, keep this file anyway and let the other
@@ -57,7 +58,12 @@ services:
       - MCL_NODE_HOST=127.0.0.1
       - MCL_COOKIE=mcl_search
       # Host networking means a port already bound on this host fails SILENTLY.
+      # It listens on 127.0.0.1 only (config/sys.config.src).
       - MCL_HEALTH_PORT=8497
+      # THE ONE THING THIS SERVICE CALLS. No default: without a SearXNG the
+      # node refuses to start. On the fleet SearXNG runs on the same host
+      # network (beam03: 127.0.0.1:8888), so place this service beside it.
+      - SEARXNG_URL=${SEARXNG_URL:?set SEARXNG_URL to the SearXNG base URL, e.g. http://127.0.0.1:8888}
 
 # The identity volume, NAMED HERE rather than left to the project name, so a
 # `docker compose -p` with a different name reuses the same key instead of

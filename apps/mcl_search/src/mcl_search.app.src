@@ -7,9 +7,15 @@
         kernel,
         stdlib,
         crypto,
+        %% Outbound HTTP to SearXNG, plain OTP (inets/httpc).
+        inets,
+        %% The responder's behaviour and the member gate's key id.
+        macula,
         %% Mesh SDK, realm identity, capabilities, health.
         mcl_om
     ]},
+    %% No default searxng_url: config/sys.config.src sets it from SEARXNG_URL,
+    %% and the service refuses to start without one.
     {env, []},
     {modules, []},
     {licenses, ["Apache-2.0"]},

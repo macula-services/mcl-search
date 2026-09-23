@@ -1,0 +1,37 @@
+# SearXNG settings for LOCAL DEVELOPMENT ONLY -- see README's "Running it
+# against a real SearXNG" section for how this gets used.
+#
+# The real, deployed instance (macula-demo/infrastructure) has its own
+# settings.yml with a genuinely random secret_key kept out of git, seeded
+# once out of band as a 0600 file -- same convention every other secret
+# on this fleet follows. The value below is deliberately an obvious
+# placeholder, safe to commit: this file is never used for anything but
+# a throwaway local container.
+
+use_default_settings: true
+
+general:
+  instance_name: "mcl-search-dev"
+  debug: false
+
+search:
+  safe_search: 0
+  autocomplete: ""
+  default_lang: "en"
+  formats:
+    - html
+    - json
+
+server:
+  port: 8080
+  bind_address: "0.0.0.0"
+  secret_key: "local-dev-only-not-a-real-secret-do-not-deploy-this-value"
+  limiter: false
+
+ui:
+  static_use_hash: true
+
+outgoing:
+  request_timeout: 10.0
+  max_request_timeout: 15.0
+  useragent_suffix: ""

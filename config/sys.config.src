@@ -3,6 +3,14 @@
 %% half-configured realm announces itself where nobody can attribute it, which
 %% looks exactly like a healthy node.
 [
+    {mcl_search, [
+        %% SearXNG's base URL. No default, here or anywhere: the service does
+        %% nothing without it and refuses to start, rather than boot green and
+        %% fail every search. On the fleet SearXNG runs beside it on the same
+        %% host network, so this is a loopback URL such as
+        %% http://127.0.0.1:8888.
+        {searxng_url, "${SEARXNG_URL}"}
+    ]},
     {mcl_om, [
         %% Without this, mcl_om_identity:load_node_key/0 returns `undefined'
         %% forever and identity_key/0 stays {error, no_identity_key} -- a
@@ -14,6 +22,10 @@
         %% lacked this line. Point it at the mounted secrets volume.
         {identity_key_path, "/etc/mcl/secrets/identity.key"},
         {health_port,       ${MCL_HEALTH_PORT}},
+        %% LOOPBACK ONLY. /health carries internal error text (a SearXNG
+        %% connect error, say), and nothing off the host needs it: the
+        %% container healthcheck and scripts/health.sh run on the node.
+        {health_ip,         "127.0.0.1"},
         {capability_topic,  <<"_mesh.cap.">>},
         %% THE REALM IS AN APPLICATION ENV, NOT A SHELL VARIABLE, and this file
         %% is the only place the two meet. mcl_om_identity:realm() reads

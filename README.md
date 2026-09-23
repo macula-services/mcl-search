@@ -2,21 +2,73 @@
 
 **Web search over the live internet for realm members, backed by SearXNG**
 
-## Status: scaffold
+## What it does
 
-The service boots, joins the mesh and answers `/health` on 8497. It
-does nothing else yet.
+One procedure, `mcl-search/web_search`, served only to email-verified members
+of the realm. It proxies a query to a SearXNG instance's JSON API and hands back
+a bounded, shaped list of results:
 
-It announces no capability and asks the realm for no authority, because it can do
-nothing yet. Both lists grow when the thing they name exists. Advertising a
-capability before it exists puts a lie on the mesh where another service can find
-it and call it.
+| Payload | Reply |
+|---------|-------|
+| `query` (required, 1 to 512 bytes), `limit` (optional, default 10, capped at 25) | `results`: a list of `title`, `url`, `content`, `engine`, each CBOR text |
+
+A refusal comes back as the call's error: `invalid_query` for a blank, missing
+or over-long query, `search_unavailable` when SearXNG cannot answer (the reason
+goes to the service's log), and `unauthorized`, from macula itself, for a caller
+who is not a member.
+
+It keeps no store and no record of what anyone searched, by design.
+
+### Who may search
+
+`web_search` spends this node's SearXNG on the live internet, so it serves a
+caller only when the CALL carries a membership token signed by the realm's
+signing key, for that caller's own identity, at the `member/email-verified`
+tier. macula checks the token on every inbound call before the handler runs.
+The device tier (`member/device-verified`) is refused: the realm mints it to any
+device that proves it holds its own key.
+
+The realm key the gate names is `MCL_REALM_KEY`, the same key the pool pins as
+its trust anchor, because macula-realm signs its member tokens with it. There is
+nothing extra to configure, and without a valid key the node refuses to boot:
+there is no open fallback.
+
+`scripts/verify-member-gate.sh` proves the gate on the live mesh with
+`macula-cli`: a call with no token, another realm's token, somebody else's token
+or a device-tier token is refused, and a member presenting its own token is
+served. It prints verdicts and BOLT#4 names only, never a token, and its header
+lists the environment it reads.
+
+### SearXNG, the one dependency
+
+This service does nothing without a SearXNG instance, named by `SEARXNG_URL`.
+There is no default anywhere: a node without it refuses to start, and `/health`
+reports `degraded` whenever SearXNG does not answer its `/healthz`.
+
+On the fleet, SearXNG runs on **beam03** (container `searxng`, host network,
+`127.0.0.1:8888`). Loopback reaches it only from the same host, so mcl-search
+runs beside it there with `SEARXNG_URL=http://127.0.0.1:8888`, or points at
+another instance deliberately.
+
+For local development:
+
+```sh
+podman run -d --name searxng-dev -p 127.0.0.1:8888:8080 \
+  --pids-limit=4096 --ulimit nproc=4096:4096 \
+  -v "$PWD/deploy/searxng-settings.yml:/etc/searxng/settings.yml:ro" \
+  docker.io/searxng/searxng:latest
+```
+
+`deploy/searxng-settings.yml` turns on the JSON format the service asks for.
 
 ## Running it
 
     rebar3 compile
-    rebar3 eunit
+    rebar3 eunit                           # no SearXNG needed
     rebar3 lint
+    rebar3 dialyzer
+    SEARXNG_URL=http://127.0.0.1:8888 \
+      rebar3 as live_test eunit --dir test_live   # against the SearXNG above
 
     scripts/health.sh                      # against a running node
 
@@ -34,10 +86,11 @@ a different libc.
 | `MCL_REALM_KEY` | required | The realm's public signing key, hex encoded: the **trust anchor**, not an identifier. Every org-namespaced advertisement is verified against it, so without it nothing resolves, the boot claim never reaches the realm, and the service stays green while unreachable. Public material, not a secret. |
 | `MACULA_STATION_SEEDS` | required | Station hosts to dial, `host[:port]`, comma-separated. No default: naming a realm costs nothing, dialling a production station from every dev clone does. |
 | `MACULA_STATION_NODE_IDS` | required | The matching 64-hex station node ids, comma-separated, index-paired with the seeds. The dial is pinned (D5): mcl_om refuses to boot a pool with an unpinned seed. |
-| `MCL_HEALTH_PORT` | `8497` | Health endpoint. Host networking makes a collision a silent bind failure, so check the host before changing.  |
+| `MCL_HEALTH_PORT` | `8497` | Health endpoint, on 127.0.0.1 only. Host networking makes a collision a silent bind failure, so check the host before changing.  |
 | `MCL_NODE_NAME` | `mcl_search` | Erlang node name. |
 | `MCL_NODE_HOST` | `127.0.0.1` | Erlang node host. |
 | `MCL_COOKIE` | `mcl_search` | Erlang cookie. |
+| `SEARXNG_URL` | required | SearXNG's base URL, e.g. `http://127.0.0.1:8888`. No default: without it the node refuses to start. |
 
 `deploy/docker-compose.yml` runs it, and carries what the service knows about
 itself. If you deploy through something else, let that carry **placement**: which
