@@ -64,6 +64,11 @@ services:
       # node refuses to start. On the fleet SearXNG runs on the same host
       # network (beam03: 127.0.0.1:8888), so place this service beside it.
       - SEARXNG_URL=${SEARXNG_URL:?set SEARXNG_URL to the SearXNG base URL, e.g. http://127.0.0.1:8888}
+      # Labels on the claim this service sends the realm at boot, which the
+      # realm's operator sees on the Providers desk: what is asking, and from
+      # which box. MCL_BOX comes from the host that deploys it.
+      - MCL_SERVICE_NAME=mcl-search
+      - MCL_BOX=${MCL_BOX:-}
 
 # The identity volume, NAMED HERE rather than left to the project name, so a
 # `docker compose -p` with a different name reuses the same key instead of
