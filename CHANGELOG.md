@@ -7,6 +7,14 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+### Changed
+
+- **The team image pair.** Builds in `macula-ci-otp` and runs on
+  `macula-pq-runtime` (Debian trixie), both pinned by dated tag and digest,
+  instead of the scaffold's Alpine pair, whose runtime tag `alpine:3.22`
+  floated. CI runs in the same build image; a test holds the three digests and
+  the OTP release checks.
+
 ### Added
 
 - **On `mcl_om` 0.28 with macula 12.2.** The service answers `mcl-search/info`,

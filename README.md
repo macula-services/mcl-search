@@ -81,9 +81,10 @@ podman run -d --name searxng-dev -p 127.0.0.1:8888:8080 \
 
     scripts/health.sh                      # against a running node
 
-Building the image needs a Rust toolchain, because macula ships a QUIC NIF and
-the alpine build compiles it from source rather than fetching one linked against
-a different libc.
+The image builds in the team's `ghcr.io/macula-io/macula-ci-otp` and runs on
+`ghcr.io/macula-io/macula-pq-runtime` (Debian trixie, OpenSSL with ML-DSA), both
+pinned by dated tag and digest; CI runs in the same build image. macula's NIFs
+build from source there, so a local build needs a Rust toolchain.
 
     podman build -t mcl-search -f Containerfile .
 
