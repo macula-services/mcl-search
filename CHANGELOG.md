@@ -9,6 +9,12 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ### Added
 
+- **On `mcl_om` 0.28 with macula 12.2.** The service answers `mcl-search/info`,
+  which mcl_om adds (public facts: versions, labels, health word, procedures),
+  and a test sends that reply through macula's frame codec and checks it names
+  this service and the mcl_om 0.28 / macula 12.2 pair. 0.28 is the release
+  macula 12.2 needs: under 12.2 an older mcl_om lets a failed publish
+  announcement kill the publishing process.
 - Web search for realm members on macula 12 and `mcl_om` 0.27: one procedure,
   `mcl-search/web_search`, proxied to SearXNG, results as CBOR text.
 - The member gate: `{realm_member_required, KeyId, <<"member/email-verified">>}`,

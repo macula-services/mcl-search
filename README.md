@@ -23,6 +23,11 @@ who is not a member.
 
 It keeps no store and no record of what anyone searched, by design.
 
+Like every mcl service, it also answers `mcl-search/info`, which mcl_om adds: its
+name, version and description, its org and claim labels, node id, the macula
+and mcl_om versions, uptime, the health word and the procedures it advertises.
+Open to any mesh caller, public facts only.
+
 ### Who may search
 
 `web_search` spends this node's SearXNG on the live internet, so it serves a
