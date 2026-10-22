@@ -143,7 +143,7 @@ def context():
           ["Signs the member token macula checks", "before a call reaches the handler;",
            "its D25 grant names", "mcl-search/web_search"])
     d.box("b-mac", 360, 420, 280, 120, "Macula stations, mesh DHT", "[Macula infrastructure]",
-          ["Two pinned stations are the", "service's entry points (QUIC); the", "DHT takes its advertisement"])
+          ["The pinned stations are the", "service's entry points (QUIC); the", "DHT takes its advertisement"])
     d.box("b-ext", 660, 420, 280, 136, "SearXNG", "[External system, unmodified]",
           ["JSON search API and /healthz on", "the same host, 127.0.0.1:8888. It",
            "queries the upstream engines; this", "service talks to nothing else"])
@@ -200,7 +200,7 @@ def components():
     d.edge("M32 130H20V602H32"); d.text("t-rel", 26, 400, "resolved by name at boot", anchor="middle", rotate=-90)
     d.edge("M160 662V728"); d.text("t-rel", 168, 690, "reads the identity key")
     d.text("t-desc", 40, 866, "config/sys.config.src fixes the org, mcl-search, which prefixes the procedure and the D25 grant, and pins")
-    d.text("t-desc", 40, 884, "the realm key and the two station node ids. There is no store, so the service mounts one volume,")
+    d.text("t-desc", 40, 884, "the realm key. There is no store, so the service mounts one volume,")
     d.text("t-desc", 40, 902, "/etc/mcl/secrets, and nothing else. Its JSON and HTTP are stdlib (json, httpc): no other dependency.")
     d.legend(930, boundary=False)
     d.write()

@@ -74,7 +74,7 @@
 <rect class="b-mac" x="360" y="420" width="280" height="120" rx="10"/>
 <text class="t-name" x="376" y="448">Macula stations, mesh DHT</text>
 <text class="t-type" x="376" y="466">[Macula infrastructure]</text>
-<text class="t-desc" x="376" y="490">Two pinned stations are the</text>
+<text class="t-desc" x="376" y="490">The pinned stations are the</text>
 <text class="t-desc" x="376" y="506">service's entry points (QUIC); the</text>
 <text class="t-desc" x="376" y="522">DHT takes its advertisement</text>
 <rect class="b-ext" x="660" y="420" width="280" height="136" rx="10"/>
