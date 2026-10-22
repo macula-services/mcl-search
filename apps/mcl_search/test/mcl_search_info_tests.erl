@@ -1,11 +1,11 @@
-%% @doc `mcl-search/info', the procedure mcl_om 0.28 answers for this service with
+%% @doc `mcl-search/info', the procedure mcl_om 1.4 answers for this service with
 %% no code of its own: who it is, its versions and what it advertises.
 %%
 %% Built from this service's real info/0, its real capabilities/0 with `info'
 %% added the way mcl_om:boot/2 adds it, and the org in config/sys.config.src,
 %% then sent through macula's own frame codec, the path a reply takes. What
 %% arrives must be text, never bytes, and name this service, its procedures and
-%% an mcl_om of at least 1.2 with a macula of at least 15.6: 1.0 is wire 1.0,
+%% an mcl_om of at least 1.4 with a macula of at least 16.0: 1.0 is wire 1.0,
 %% which is the wire the live fleet speaks, and macula 12.x cannot handshake
 %% with it.
 -module(mcl_search_info_tests).
