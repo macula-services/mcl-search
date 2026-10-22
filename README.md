@@ -26,7 +26,7 @@
 
 ## What it does
 
-One procedure, `mcl-search/web_search`, served only to email-verified members
+One procedure of its own, `mcl-search/web_search`, served only to email-verified members
 of the realm. It proxies a query to a SearXNG instance's JSON API and hands back
 a bounded, shaped list of results:
 
