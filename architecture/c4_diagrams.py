@@ -136,9 +136,10 @@ def context():
           ["A node on the mesh holding a", "realm-signed member token"], person=True)
     d.box("b-per", 660, 30, 280, 104, "Service operator", "[Person]",
           ["Runs the node beside SearXNG and", "supplies the realm, key, stations"], person=True)
-    d.box("b-sys", 360, 200, 280, 150, "mcl-search", "[mcl_om mesh service, own box]",
-          ["One procedure, mcl-search/web_search,", "served only to email-verified realm",
-           "members; /health on loopback 8497. It", "keeps no store and no search history"])
+    d.box("b-sys", 360, 200, 280, 170, "mcl-search", "[mcl_om mesh service, own box]",
+          ["One procedure of its own:", "mcl-search/web_search, served only",
+           "to email-verified realm members;", "/health on loopback 8497. It keeps",
+           "no store and no search history"])
     d.box("b-mac", 60, 420, 280, 136, "macula-realm", "[Macula infrastructure]",
           ["Signs the member token macula checks", "before a call reaches the handler;",
            "its D25 grant names", "mcl-search/web_search"])

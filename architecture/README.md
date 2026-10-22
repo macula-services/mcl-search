@@ -3,7 +3,7 @@
 *This exists so a reader can see what mcl-search talks to, and what it is made
 of, without reading it.*
 
-**Status: one procedure, release 0.1.0.** The service boots, joins the mesh,
+**Status: one procedure of its own, release 0.1.0.** The service boots, joins the mesh,
 advertises `mcl-search/web_search` under the member policy, and answers
 `/health` on `127.0.0.1:8497`. It keeps no store and no record of a query.
 SearXNG must be reachable at `SEARXNG_URL` or the service refuses to start.
@@ -14,7 +14,7 @@ SearXNG must be reachable at `SEARXNG_URL` or the service refuses to start.
 
 | Element | Kind | Role |
 | --- | --- | --- |
-| mcl-search | In scope | One procedure, `mcl-search/web_search`, served only to email-verified realm members; `/health` on loopback 8497. It keeps no store and no search history |
+| mcl-search | In scope | One procedure of its own, `mcl-search/web_search`, served only to email-verified realm members; `/health` on loopback 8497. It keeps no store and no search history |
 | Realm member | Person or AI agent | A node on the mesh holding a realm-signed member token at the `member/email-verified` tier |
 | Service operator | Person | Runs the node beside SearXNG and supplies the realm, its public key, the pinned stations and `SEARXNG_URL` |
 | macula-realm | Macula infrastructure | Signs the member token macula checks before a call reaches the handler; its D25 grant names `mcl-search/web_search` |
