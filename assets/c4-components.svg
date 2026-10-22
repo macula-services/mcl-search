@@ -51,8 +51,8 @@
 <text class="t-code" x="48" y="98">mcl_search_service</text>
 <text class="t-type" x="48" y="116">[mcl_om_service behaviour]</text>
 <text class="t-desc" x="48" y="140">The six callbacks mcl_om resolves by name at</text>
-<text class="t-desc" x="48" y="156">startup. One capability, web_search, whose auth</text>
-<text class="t-desc" x="48" y="172">is web_search_member_gate:policy/0</text>
+<text class="t-desc" x="48" y="156">startup. capabilities/0 returns web_search;</text>
+<text class="t-desc" x="48" y="172">mcl_om adds info and get_limits, both open</text>
 <rect class="b-cmp" x="512" y="70" width="456" height="104" rx="10"/>
 <text class="t-code" x="528" y="98">mcl_search_app</text>
 <text class="t-type" x="528" y="116">[OTP application]</text>

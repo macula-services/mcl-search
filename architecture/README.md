@@ -3,9 +3,11 @@
 *This exists so a reader can see what mcl-search talks to, and what it is made
 of, without reading it.*
 
-**Status: one procedure of its own, release 0.1.0.** The service boots, joins the mesh,
-advertises `mcl-search/web_search` under the member policy, and answers
-`/health` on `127.0.0.1:8497`. It keeps no store and no record of a query.
+**Status: `mcl-search/web_search` is the service's own procedure, and the only
+one; release 0.1.0.** The service boots, joins the mesh, advertises it under the
+member policy, and answers `/health` on `127.0.0.1:8497`. `mcl_om` adds
+`mcl-search/info` and `mcl-search/get_limits` to every service, both open;
+`capabilities/0` is the list. It keeps no store and no record of a query.
 SearXNG must be reachable at `SEARXNG_URL` or the service refuses to start.
 
 ## Level 1: system context
@@ -14,11 +16,11 @@ SearXNG must be reachable at `SEARXNG_URL` or the service refuses to start.
 
 | Element | Kind | Role |
 | --- | --- | --- |
-| mcl-search | In scope | One procedure of its own, `mcl-search/web_search`, served only to email-verified realm members; `/health` on loopback 8497. It keeps no store and no search history |
+| mcl-search | In scope | `mcl-search/web_search` is its own procedure, served only to email-verified realm members; `/health` on loopback 8497. It keeps no store and no search history |
 | Realm member | Person or AI agent | A node on the mesh holding a realm-signed member token at the `member/email-verified` tier |
 | Service operator | Person | Runs the node beside SearXNG and supplies the realm, its public key, the pinned stations and `SEARXNG_URL` |
 | macula-realm | Macula infrastructure | Signs the member token macula checks before a call reaches the handler; its D25 grant names `mcl-search/web_search` |
-| Macula stations, mesh DHT | Macula infrastructure | The service dials out to the pinned stations over QUIC, and the mesh DHT takes the capability it advertises |
+| Macula stations, mesh DHT | Macula infrastructure | The service dials out to the pinned stations over QUIC, and the mesh DHT takes the advertisement |
 | SearXNG | External system | Unmodified, on the same host: its JSON search API and `/healthz` on `127.0.0.1:8888`. It queries the upstream engines; this service talks to nothing else |
 
 SearXNG reaches the live web; this service reaches only SearXNG, on loopback,
@@ -31,7 +33,7 @@ macula before the handler runs.
 
 | Component | Technology | Responsibility |
 | --- | --- | --- |
-| `mcl_search_service` | Erlang, the `mcl_om_service` behaviour | The six callbacks `mcl_om` resolves by name at startup. One capability, `web_search`, whose auth is `web_search_member_gate:policy/0`. `start/1` refuses a node with no `SEARXNG_URL`, and `health/0` is the responder's SearXNG probe |
+| `mcl_search_service` | Erlang, the `mcl_om_service` behaviour | The six callbacks `mcl_om` resolves by name at startup. `capabilities/0` returns `web_search`, whose auth is `web_search_member_gate:policy/0`. `start/1` refuses a node with no `SEARXNG_URL`, and `health/0` is the responder's SearXNG probe |
 | `mcl_search_app` | OTP application | `mcl_om:boot/1` wires the mesh, the realm identity and `/health`, then starts the service. Storeless |
 | `web_search_member_gate` | capability auth policy | Builds `{realm_member_required, RealmKeyId, <<"member/email-verified">>}` from `MCL_REALM_KEY`, the same key the pool pins as its trust anchor. It raises when that key is missing or malformed, so there is no open fallback |
 | `mcl_search_sup` | supervisor, `one_for_one` | Has no children: `macula_response` spawns a responder per call, and nothing is kept between calls |

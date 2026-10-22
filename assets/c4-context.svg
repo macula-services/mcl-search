@@ -60,7 +60,7 @@
 <rect class="b-sys" x="360" y="200" width="280" height="170" rx="10"/>
 <text class="t-name" x="376" y="228">mcl-search</text>
 <text class="t-type" x="376" y="246">[mcl_om mesh service, own box]</text>
-<text class="t-desc" x="376" y="270">One procedure of its own:</text>
+<text class="t-desc" x="376" y="270">Serves its own procedure,</text>
 <text class="t-desc" x="376" y="286">mcl-search/web_search, served only</text>
 <text class="t-desc" x="376" y="302">to email-verified realm members;</text>
 <text class="t-desc" x="376" y="318">/health on loopback 8497. It keeps</text>

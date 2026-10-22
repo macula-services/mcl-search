@@ -26,7 +26,7 @@
 
 ## What it does
 
-One procedure of its own, `mcl-search/web_search`, served only to email-verified members
+`mcl-search/web_search` is its own procedure, served only to email-verified members
 of the realm. It proxies a query to a SearXNG instance's JSON API and hands back
 a bounded, shaped list of results:
 
@@ -45,10 +45,13 @@ who is not a member.
 
 It keeps no store and no record of what anyone searched, by design.
 
-Like every mcl service, it also answers `mcl-search/info`, which mcl_om adds: its
-name, version and description, its org and claim labels, node id, the macula
-and mcl_om versions, uptime, the health word and the procedures it advertises.
-Open to any mesh caller, public facts only.
+`mcl-search/web_search` is the service's own procedure, and the only one.
+`mcl_om` adds `mcl-search/info` and `mcl-search/get_limits` to every service,
+both open; `capabilities/0` is the list. `info` returns the name, version and
+description, the org and claim labels, node id, the macula and mcl_om versions,
+uptime, the health word and the names it advertises. `get_limits` returns the
+adaptive limits and the current window's counters. Both are public facts, open
+to any mesh caller.
 
 ### Who may search
 
@@ -115,7 +118,7 @@ build from source there, so a local build needs a Rust toolchain.
 | Variable | Default | Meaning |
 |----------|---------|---------|
 | `MCL_REALM` | required | 64-hex realm tag, the `sha256` of the realm's name. No default: a service that guesses its realm announces itself where nobody can attribute it. |
-| `MCL_REALM_KEY` | required | The realm's public signing key, hex encoded: the **trust anchor**, not an identifier. Every org-namespaced advertisement is verified against it, so without it nothing resolves, the boot claim never reaches the realm, and the service stays green while unreachable. Public material, not a secret. |
+| `MCL_REALM_KEY` | required | The realm's public signing key, hex encoded: the **trust anchor**, not an identifier. An org-namespaced advertisement is verified against it, so without it nothing resolves, the boot claim never reaches the realm, and the service stays green while unreachable. Public material, not a secret. |
 | `MACULA_STATION_SEEDS` | required | Station hosts to dial, `host[:port]`, comma-separated. No default: naming a realm costs nothing, dialling a production station from every dev clone does. |
 | `MACULA_STATION_NODE_IDS` | required | The matching 64-hex station node ids, comma-separated, index-paired with the seeds. The dial is pinned (D5): mcl_om refuses to boot a pool with an unpinned seed. |
 | `MCL_SERVICE_NAME` | `mcl-search` | Label on the boot claim the realm's operator sees on the Providers desk. Falls back to the service's own name. |
@@ -134,14 +137,15 @@ what stops a config table in a README and the real environment drifting.
 ## Deployment
 
 The image has two channels. A push to `main` publishes
-`ghcr.io/macula-services/mcl-search:latest`, the deploy channel: a host that follows
-`:latest` deploys every merge. A `v*` tag publishes its own version and nothing
-else, the rollback archive: pin a host to one to roll back. A push that changes
-only documentation builds no image (`scripts/is_image_push.sh`).
+`ghcr.io/macula-services/mcl-search:main` and `:<sha>`, the tip, for trying;
+nothing follows it. A `v*` tag publishes `:<semver>`, and moves `:latest` to the
+signed digest, which a host pins to deploy; the semver tags stay published as the
+rollback archive. A push that changes only documentation builds no image
+(`scripts/is_image_push.sh`).
 
-The service's org, the `<org>` in every procedure it offers (`<org>/<name>`), is
+The service's org, the `<org>` prefixing its procedure names (`<org>/<name>`), is
 this repository's name, fixed in `config/sys.config.src`. The realm's grant names
-it; without an org mcl_om advertises nothing.
+it; a node without an org refuses to boot.
 
 Two things CI cannot do for you, both of which have bitten:
 

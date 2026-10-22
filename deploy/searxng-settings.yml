@@ -1,6 +1,6 @@
 # SearXNG settings for LOCAL DEVELOPMENT ONLY (see the README).
 #
-# The fleet's instance on beam03 keeps its own settings.yml, with a real random
+# A deployed instance keeps its own settings.yml, with a real random
 # secret_key that is not in git. The secret_key below is an obvious placeholder,
 # safe to commit, because this file only ever configures a throwaway local
 # container.

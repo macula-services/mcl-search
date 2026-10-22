@@ -5,7 +5,7 @@ Run:  python3 architecture/c4_diagrams.py
   c4-context.svg     Level 1: what the service talks to
   c4-components.svg  Level 2: what it is made of
 
-Drawn from the code, never from a template: the callbacks and the one gated
+Drawn from the code, never from a template: the callbacks and the gated
 capability in mcl_search_service.erl, the member policy in
 web_search_member_gate.erl, the responder and its SearXNG calls in
 web_search_responder.erl, the dependencies in rebar.config, the port in the
@@ -137,7 +137,7 @@ def context():
     d.box("b-per", 660, 30, 280, 104, "Service operator", "[Person]",
           ["Runs the node beside SearXNG and", "supplies the realm, key, stations"], person=True)
     d.box("b-sys", 360, 200, 280, 170, "mcl-search", "[mcl_om mesh service, own box]",
-          ["One procedure of its own:", "mcl-search/web_search, served only",
+          ["Serves its own procedure,", "mcl-search/web_search, served only",
            "to email-verified realm members;", "/health on loopback 8497. It keeps",
            "no store and no search history"])
     d.box("b-mac", 60, 420, 280, 136, "macula-realm", "[Macula infrastructure]",
@@ -168,11 +168,12 @@ def components():
     d = Diagram("c4-components.svg", "mcl-search components", 1000, 960)
     d.bound(16, 40, 968, 660, "mcl-search [Container]")
     d.box("b-cmp", 32, 70, 456, 120, "mcl_search_service", "[mcl_om_service behaviour]",
-          ["The six callbacks mcl_om resolves by name at", "startup. One capability, web_search, whose auth",
-           "is web_search_member_gate:policy/0"], code=True)
+          ["The six callbacks mcl_om resolves by name at", "startup. capabilities/0 returns web_search;",
+           "mcl_om adds info and get_limits, both open"], code=True)
     d.box("b-cmp", 512, 70, 456, 104, "mcl_search_app", "[OTP application]",
           ["mcl_om:boot/1 wires the mesh, the realm", "identity and /health, then starts the service"], code=True)
-    d.box("b-sys", 32, 214, 456, 120, "web_search_member_gate", "[capability auth policy]",
+    d.box("b-sys", 32, 214, 456, 120,
+          "web_search_member_gate", "[capability auth policy]",
           ["Builds the realm_member_required policy from", "MCL_REALM_KEY: its key id and the tier",
            "member/email-verified. No open fallback"], code=True)
     d.box("b-cmp", 512, 214, 456, 104, "mcl_search_sup", "[supervisor, one_for_one]",

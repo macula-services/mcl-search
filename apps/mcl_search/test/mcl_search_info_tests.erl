@@ -31,7 +31,7 @@ info_round_trip_test_() ->
           ?_assert(at_least(maps:get(macula_version, Reply), [16, 0]))]
      end}.
 
-%% A floor, not an exact release: `~> 1.2' takes any later minor, and above
+%% A floor, not an exact release: `~> 1.4' takes any later minor, and above
 %% 1.0 the major is the breaking unit, so "at least" is the version compared as
 %% a number, not "the same major and a minor at or above".
 at_least({text, Vsn}, Floor) ->
