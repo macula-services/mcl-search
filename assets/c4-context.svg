@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 700" role="img" aria-label="mcl-search system context">
+<title>mcl-search system context</title>
+<style>
+.t-name { font-family: "Atkinson Hyperlegible", "Segoe UI", system-ui, -apple-system, Helvetica, Arial, sans-serif; font-size: 15px; font-weight: 700; }
+.t-desc { font-family: "Atkinson Hyperlegible", "Segoe UI", system-ui, -apple-system, Helvetica, Arial, sans-serif; font-size: 12.5px; }
+.t-rel { font-family: "Atkinson Hyperlegible", "Segoe UI", system-ui, -apple-system, Helvetica, Arial, sans-serif; font-size: 11.5px; paint-order: stroke; stroke-width: 4px; stroke-linejoin: round; }
+.t-code { font-family: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace; font-size: 13px; font-weight: 600; }
+.t-type { font-family: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace; font-size: 11.5px; }
+.t-bound { font-family: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace; font-size: 12px; font-weight: 600; }
+.t-leg { font-family: "Atkinson Hyperlegible", "Segoe UI", system-ui, -apple-system, Helvetica, Arial, sans-serif; font-size: 12px; }
+.edge { fill: none; stroke-width: 1.25; }
+.edge-later { fill: none; stroke-width: 1.25; stroke-dasharray: 5 4; }
+.bg { fill: #FFFFFF; }
+.b-sys { fill: #F5E9CC; stroke: #A56F0A; stroke-width: 2; }
+.b-per { fill: #E3EBF2; stroke: #3B5B7A; stroke-width: 1.25; }
+.b-mac { fill: #E6E4EE; stroke: #5E5A78; stroke-width: 1.25; }
+.b-ext { fill: #ECEFED; stroke: #8A9791; stroke-width: 1.25; }
+.b-cmp { fill: #FFFFFF; stroke: #8A9791; stroke-width: 1.25; }
+.b-later { fill: none; stroke: #8A9791; stroke-width: 1.25; stroke-dasharray: 5 4; }
+.bound { fill: none; stroke: #B3BDB8; stroke-width: 1; }
+.head { fill: #3B5B7A; }
+.t-name, .t-code { fill: #16201D; }
+.t-type, .t-bound, .t-leg { fill: #66736E; }
+.t-desc { fill: #34413C; }
+.t-rel { fill: #66736E; stroke: #FFFFFF; }
+.edge, .edge-later { stroke: #8A9791; }
+.arrowhead { fill: #8A9791; }
+@media (prefers-color-scheme: dark) {
+.bg { fill: #171F1C; }
+.b-sys { fill: #3A2E13; stroke: #E3AA3C; }
+.b-per { fill: #1D2A36; stroke: #8EB4D8; }
+.b-mac { fill: #26243A; stroke: #A9A4C8; }
+.b-ext { fill: #1C2421; stroke: #7D8B85; }
+.b-cmp { fill: #171F1C; stroke: #7D8B85; }
+.b-later { stroke: #7D8B85; }
+.bound { stroke: #4A5752; }
+.head { fill: #8EB4D8; }
+.t-name, .t-code { fill: #E6ECE9; }
+.t-type, .t-bound, .t-leg { fill: #93A09A; }
+.t-desc { fill: #C3CDC8; }
+.t-rel { fill: #93A09A; stroke: #171F1C; }
+.edge, .edge-later { stroke: #7D8B85; }
+.arrowhead { fill: #7D8B85; }
+}
+</style>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="arrowhead" d="M0 0L10 5L0 10z"/></marker></defs>
+<rect class="bg" x="0" y="0" width="1000" height="700"/>
+<rect class="b-per" x="60" y="30" width="280" height="104" rx="10"/>
+<circle class="head" cx="86" cy="54" r="9"/>
+<text class="t-name" x="104" y="58">Realm member</text>
+<text class="t-type" x="104" y="76">[Person or AI agent]</text>
+<text class="t-desc" x="76" y="100">A node on the mesh holding a</text>
+<text class="t-desc" x="76" y="116">realm-signed member token</text>
+<rect class="b-per" x="660" y="30" width="280" height="104" rx="10"/>
+<circle class="head" cx="686" cy="54" r="9"/>
+<text class="t-name" x="704" y="58">Service operator</text>
+<text class="t-type" x="704" y="76">[Person]</text>
+<text class="t-desc" x="676" y="100">Runs the node beside SearXNG and</text>
+<text class="t-desc" x="676" y="116">supplies the realm, key, stations</text>
+<rect class="b-sys" x="360" y="200" width="280" height="150" rx="10"/>
+<text class="t-name" x="376" y="228">mcl-search</text>
+<text class="t-type" x="376" y="246">[mcl_om mesh service, own box]</text>
+<text class="t-desc" x="376" y="270">One procedure, mcl-search/web_search,</text>
+<text class="t-desc" x="376" y="286">served only to email-verified realm</text>
+<text class="t-desc" x="376" y="302">members; /health on loopback 8497. It</text>
+<text class="t-desc" x="376" y="318">keeps no store and no search history</text>
+<rect class="b-mac" x="60" y="420" width="280" height="136" rx="10"/>
+<text class="t-name" x="76" y="448">macula-realm</text>
+<text class="t-type" x="76" y="466">[Macula infrastructure]</text>
+<text class="t-desc" x="76" y="490">Signs the member token macula checks</text>
+<text class="t-desc" x="76" y="506">before a call reaches the handler;</text>
+<text class="t-desc" x="76" y="522">its D25 grant names</text>
+<text class="t-desc" x="76" y="538">mcl-search/web_search</text>
+<rect class="b-mac" x="360" y="420" width="280" height="120" rx="10"/>
+<text class="t-name" x="376" y="448">Macula stations, mesh DHT</text>
+<text class="t-type" x="376" y="466">[Macula infrastructure]</text>
+<text class="t-desc" x="376" y="490">Two pinned stations are the</text>
+<text class="t-desc" x="376" y="506">service's entry points (QUIC); the</text>
+<text class="t-desc" x="376" y="522">DHT takes its advertisement</text>
+<rect class="b-ext" x="660" y="420" width="280" height="136" rx="10"/>
+<text class="t-name" x="676" y="448">SearXNG</text>
+<text class="t-type" x="676" y="466">[External system, unmodified]</text>
+<text class="t-desc" x="676" y="490">JSON search API and /healthz on</text>
+<text class="t-desc" x="676" y="506">the same host, 127.0.0.1:8888. It</text>
+<text class="t-desc" x="676" y="522">queries the upstream engines; this</text>
+<text class="t-desc" x="676" y="538">service talks to nothing else</text>
+<path class="edge" d="M200 134V178H450V200" marker-end="url(#a)"/>
+<text class="t-rel" x="208" y="152">calls mcl-search/web_search,</text>
+<text class="t-rel" x="208" y="166">with a member token</text>
+<path class="edge" d="M800 134V178H550V200" marker-end="url(#a)"/>
+<text class="t-rel" x="690" y="166">deploys; sets SEARXNG_URL</text>
+<path class="edge" d="M430 350V380H200V420" marker-end="url(#a)"/>
+<text class="t-rel" x="240" y="372">boot claim, D25 grant</text>
+<path class="edge" d="M500 350V420" marker-end="url(#a)"/>
+<text class="t-rel" x="508" y="404">advertises mcl-search/web_search</text>
+<path class="edge" d="M570 350V390H800V420" marker-end="url(#a)"/>
+<text class="t-rel" x="578" y="366">GET /search?format=json;</text>
+<text class="t-rel" x="578" y="382">GET /healthz for health</text>
+<text class="t-desc" x="40" y="600">SearXNG reaches the live web; this service reaches only SearXNG, on loopback, and keeps no</text>
+<text class="t-desc" x="40" y="618">record of a query. A caller without a member token is refused by macula before the handler runs.</text>
+<rect class="b-sys" x="24" y="660" width="22" height="14" rx="3"/>
+<text class="t-leg" x="54" y="672">In scope</text>
+<rect class="b-per" x="110.8" y="660" width="22" height="14" rx="3"/>
+<text class="t-leg" x="140.8" y="672">Person</text>
+<rect class="b-mac" x="184.39999999999998" y="660" width="22" height="14" rx="3"/>
+<text class="t-leg" x="214.39999999999998" y="672">Macula infrastructure</text>
+<rect class="b-ext" x="357.0" y="660" width="22" height="14" rx="3"/>
+<text class="t-leg" x="387.0" y="672">External system</text>
+<rect class="b-cmp" x="490.0" y="660" width="22" height="14" rx="3"/>
+<text class="t-leg" x="520.0" y="672">Container or component</text>
+</svg>

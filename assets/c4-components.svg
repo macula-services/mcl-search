@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 960" role="img" aria-label="mcl-search components">
+<title>mcl-search components</title>
+<style>
+.t-name { font-family: "Atkinson Hyperlegible", "Segoe UI", system-ui, -apple-system, Helvetica, Arial, sans-serif; font-size: 15px; font-weight: 700; }
+.t-desc { font-family: "Atkinson Hyperlegible", "Segoe UI", system-ui, -apple-system, Helvetica, Arial, sans-serif; font-size: 12.5px; }
+.t-rel { font-family: "Atkinson Hyperlegible", "Segoe UI", system-ui, -apple-system, Helvetica, Arial, sans-serif; font-size: 11.5px; paint-order: stroke; stroke-width: 4px; stroke-linejoin: round; }
+.t-code { font-family: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace; font-size: 13px; font-weight: 600; }
+.t-type { font-family: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace; font-size: 11.5px; }
+.t-bound { font-family: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace; font-size: 12px; font-weight: 600; }
+.t-leg { font-family: "Atkinson Hyperlegible", "Segoe UI", system-ui, -apple-system, Helvetica, Arial, sans-serif; font-size: 12px; }
+.edge { fill: none; stroke-width: 1.25; }
+.edge-later { fill: none; stroke-width: 1.25; stroke-dasharray: 5 4; }
+.bg { fill: #FFFFFF; }
+.b-sys { fill: #F5E9CC; stroke: #A56F0A; stroke-width: 2; }
+.b-per { fill: #E3EBF2; stroke: #3B5B7A; stroke-width: 1.25; }
+.b-mac { fill: #E6E4EE; stroke: #5E5A78; stroke-width: 1.25; }
+.b-ext { fill: #ECEFED; stroke: #8A9791; stroke-width: 1.25; }
+.b-cmp { fill: #FFFFFF; stroke: #8A9791; stroke-width: 1.25; }
+.b-later { fill: none; stroke: #8A9791; stroke-width: 1.25; stroke-dasharray: 5 4; }
+.bound { fill: none; stroke: #B3BDB8; stroke-width: 1; }
+.head { fill: #3B5B7A; }
+.t-name, .t-code { fill: #16201D; }
+.t-type, .t-bound, .t-leg { fill: #66736E; }
+.t-desc { fill: #34413C; }
+.t-rel { fill: #66736E; stroke: #FFFFFF; }
+.edge, .edge-later { stroke: #8A9791; }
+.arrowhead { fill: #8A9791; }
+@media (prefers-color-scheme: dark) {
+.bg { fill: #171F1C; }
+.b-sys { fill: #3A2E13; stroke: #E3AA3C; }
+.b-per { fill: #1D2A36; stroke: #8EB4D8; }
+.b-mac { fill: #26243A; stroke: #A9A4C8; }
+.b-ext { fill: #1C2421; stroke: #7D8B85; }
+.b-cmp { fill: #171F1C; stroke: #7D8B85; }
+.b-later { stroke: #7D8B85; }
+.bound { stroke: #4A5752; }
+.head { fill: #8EB4D8; }
+.t-name, .t-code { fill: #E6ECE9; }
+.t-type, .t-bound, .t-leg { fill: #93A09A; }
+.t-desc { fill: #C3CDC8; }
+.t-rel { fill: #93A09A; stroke: #171F1C; }
+.edge, .edge-later { stroke: #7D8B85; }
+.arrowhead { fill: #7D8B85; }
+}
+</style>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="arrowhead" d="M0 0L10 5L0 10z"/></marker></defs>
+<rect class="bg" x="0" y="0" width="1000" height="960"/>
+<rect class="bound" x="16" y="40" width="968" height="660" rx="12"/>
+<text class="t-bound" x="32" y="62">mcl-search [Container]</text>
+<rect class="b-cmp" x="32" y="70" width="456" height="120" rx="10"/>
+<text class="t-code" x="48" y="98">mcl_search_service</text>
+<text class="t-type" x="48" y="116">[mcl_om_service behaviour]</text>
+<text class="t-desc" x="48" y="140">The six callbacks mcl_om resolves by name at</text>
+<text class="t-desc" x="48" y="156">startup. One capability, web_search, whose auth</text>
+<text class="t-desc" x="48" y="172">is web_search_member_gate:policy/0</text>
+<rect class="b-cmp" x="512" y="70" width="456" height="104" rx="10"/>
+<text class="t-code" x="528" y="98">mcl_search_app</text>
+<text class="t-type" x="528" y="116">[OTP application]</text>
+<text class="t-desc" x="528" y="140">mcl_om:boot/1 wires the mesh, the realm</text>
+<text class="t-desc" x="528" y="156">identity and /health, then starts the service</text>
+<rect class="b-sys" x="32" y="214" width="456" height="120" rx="10"/>
+<text class="t-code" x="48" y="242">web_search_member_gate</text>
+<text class="t-type" x="48" y="260">[capability auth policy]</text>
+<text class="t-desc" x="48" y="284">Builds the realm_member_required policy from</text>
+<text class="t-desc" x="48" y="300">MCL_REALM_KEY: its key id and the tier</text>
+<text class="t-desc" x="48" y="316">member/email-verified. No open fallback</text>
+<rect class="b-cmp" x="512" y="214" width="456" height="104" rx="10"/>
+<text class="t-code" x="528" y="242">mcl_search_sup</text>
+<text class="t-type" x="528" y="260">[supervisor, one_for_one]</text>
+<text class="t-desc" x="528" y="284">No children: macula_response spawns a</text>
+<text class="t-desc" x="528" y="300">responder per call, and nothing is kept</text>
+<rect class="b-sys" x="32" y="378" width="928" height="140" rx="10"/>
+<text class="t-code" x="48" y="406">web_search_responder</text>
+<text class="t-type" x="48" y="424">[macula_response handler]</text>
+<text class="t-desc" x="48" y="448">handle_request/2: query 1 to 512 bytes, limit 1 to 25</text>
+<text class="t-desc" x="48" y="464">default 10. GET SearXNG /search?format=json with a</text>
+<text class="t-desc" x="48" y="480">20 s timeout; replies title, url, content and engine</text>
+<text class="t-desc" x="48" y="496">as text. probe /healthz for health, never a search</text>
+<rect class="b-mac" x="32" y="542" width="456" height="120" rx="10"/>
+<text class="t-code" x="48" y="570">mcl_om</text>
+<text class="t-type" x="48" y="588">[library, ~&gt; 1.4]</text>
+<text class="t-desc" x="48" y="612">boot/1: loads the node identity key, joins the</text>
+<text class="t-desc" x="48" y="628">realm, opens the QUIC pool through the pinned</text>
+<text class="t-desc" x="48" y="644">stations, registers web_search, serves /health on 8497</text>
+<rect class="b-mac" x="512" y="542" width="456" height="120" rx="10"/>
+<text class="t-code" x="528" y="570">macula SDK</text>
+<text class="t-type" x="528" y="588">[library, ~&gt; 16.0, wire 1.0]</text>
+<text class="t-desc" x="528" y="612">QUIC transport, the member token macula checks</text>
+<text class="t-desc" x="528" y="628">before a call reaches the handler, RPC dispatch</text>
+<text class="t-desc" x="528" y="644">to a provider that answers by name, DHT records</text>
+<rect class="b-ext" x="40" y="728" width="920" height="104" rx="10"/>
+<text class="t-code" x="56" y="756">SEARXNG_URL, MCL_REALM, MCL_REALM_KEY, MACULA_STATION_SEEDS, MACULA_STATION_NODE_IDS</text>
+<text class="t-type" x="56" y="774">[host environment; identity key at /etc/mcl/secrets/identity.key]</text>
+<text class="t-desc" x="56" y="798">MCL_HEALTH_PORT 8497 is the /health port, loopback only. SEARXNG_URL has no default: without it the</text>
+<text class="t-desc" x="56" y="814">service refuses to start. MCL_SERVICE_NAME and MCL_BOX label the boot claim.</text>
+<path class="edge" d="M512 130H488" marker-end="url(#a)"/>
+<text class="t-rel" x="482" y="122" text-anchor="end">starts</text>
+<path class="edge" d="M200 190V214" marker-end="url(#a)"/>
+<text class="t-rel" x="208" y="206">capabilities/0 takes its auth from</text>
+<path class="edge" d="M488 160H500V360H260V378" marker-end="url(#a)"/>
+<text class="t-rel" x="300" y="352">declares its handler</text>
+<path class="edge" d="M200 518V542" marker-end="url(#a)"/>
+<text class="t-rel" x="208" y="534">reads the payload, mcl_om_wire</text>
+<path class="edge" d="M740 518V542" marker-end="url(#a)"/>
+<text class="t-rel" x="748" y="534">dispatched and replied through</text>
+<path class="edge" d="M488 602H512" marker-end="url(#a)"/>
+<text class="t-rel" x="482" y="592" text-anchor="end">uses</text>
+<path class="edge" d="M32 130H20V602H32" marker-end="url(#a)"/>
+<text class="t-rel" x="26" y="400" text-anchor="middle" transform="rotate(-90 26 400)">resolved by name at boot</text>
+<path class="edge" d="M160 662V728" marker-end="url(#a)"/>
+<text class="t-rel" x="168" y="690">reads the identity key</text>
+<text class="t-desc" x="40" y="866">config/sys.config.src fixes the org, mcl-search, which prefixes the procedure and the D25 grant, and pins</text>
+<text class="t-desc" x="40" y="884">the realm key and the two station node ids. There is no store, so the service mounts one volume,</text>
+<text class="t-desc" x="40" y="902">/etc/mcl/secrets, and nothing else. Its JSON and HTTP are stdlib (json, httpc): no other dependency.</text>
+<rect class="b-sys" x="24" y="930" width="22" height="14" rx="3"/>
+<text class="t-leg" x="54" y="942">In scope</text>
+<rect class="b-per" x="110.8" y="930" width="22" height="14" rx="3"/>
+<text class="t-leg" x="140.8" y="942">Person</text>
+<rect class="b-mac" x="184.39999999999998" y="930" width="22" height="14" rx="3"/>
+<text class="t-leg" x="214.39999999999998" y="942">Macula infrastructure</text>
+<rect class="b-ext" x="357.0" y="930" width="22" height="14" rx="3"/>
+<text class="t-leg" x="387.0" y="942">External system</text>
+<rect class="b-cmp" x="490.0" y="930" width="22" height="14" rx="3"/>
+<text class="t-leg" x="520.0" y="942">Container or component</text>
+</svg>
