@@ -111,7 +111,7 @@
 <text class="t-rel" x="168" y="690">reads the identity key</text>
 <text class="t-desc" x="40" y="866">config/sys.config.src fixes the org, mcl-search, which prefixes the procedure and the D25 grant, and pins</text>
 <text class="t-desc" x="40" y="884">the realm key. There is no store, so the service mounts one volume,</text>
-<text class="t-desc" x="40" y="902">/etc/mcl/secrets, and nothing else. Its JSON and HTTP are stdlib (json, httpc): no other dependency.</text>
+<text class="t-desc" x="40" y="902">/etc/mcl/secrets, and nothing else. Its JSON and HTTP are OTP's own (inets/httpc and stdlib json): no other dependency.</text>
 <rect class="b-sys" x="24" y="930" width="22" height="14" rx="3"/>
 <text class="t-leg" x="54" y="942">In scope</text>
 <rect class="b-per" x="110.8" y="930" width="22" height="14" rx="3"/>

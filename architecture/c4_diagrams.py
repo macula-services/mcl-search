@@ -202,7 +202,7 @@ def components():
     d.edge("M160 662V728"); d.text("t-rel", 168, 690, "reads the identity key")
     d.text("t-desc", 40, 866, "config/sys.config.src fixes the org, mcl-search, which prefixes the procedure and the D25 grant, and pins")
     d.text("t-desc", 40, 884, "the realm key. There is no store, so the service mounts one volume,")
-    d.text("t-desc", 40, 902, "/etc/mcl/secrets, and nothing else. Its JSON and HTTP are stdlib (json, httpc): no other dependency.")
+    d.text("t-desc", 40, 902, "/etc/mcl/secrets, and nothing else. Its JSON and HTTP are OTP's own (inets/httpc and stdlib json): no other dependency.")
     d.legend(930, boundary=False)
     d.write()
 
