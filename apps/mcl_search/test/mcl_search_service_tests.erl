@@ -71,10 +71,10 @@ start_refuses_without_a_searxng_url_test() ->
     application:unset_env(?APP, searxng_url),
     ?assertError({searxng_url, unconfigured}, ?SERVICE:start(#{})).
 
-%% One procedure, `mcl-search/web_search' (the org comes from config), answered
-%% by a macula_response handler. Its member gate is web_search_member_gate_tests'
-%% business. Adding a second procedure breaks this and makes someone write down
-%% what the service can now do.
+%% One procedure of its own, `mcl-search/web_search' (the org comes from
+%% config), answered by a macula_response handler. Its member gate is
+%% web_search_member_gate_tests' business. Adding a second procedure breaks this
+%% and makes someone write down what the service can now do.
 announces_web_search_only_test() ->
     application:set_env(macula, crypto_profile, pq_hybrid),
     application:set_env(mcl_om, realm, binary:copy(<<"ab">>, 32)),

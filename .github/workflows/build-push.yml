@@ -5,9 +5,10 @@
 #   push of v*   : publishes :<semver>, then :latest once attest signed it, the digest a host pins
 #   push to main : publishes :main and :<sha>       <- the tip, for trying; nothing follows it
 #
-# The fleet runs a signed release pinned by digest, and CI commits the pin bump after a v* tag.
-# The tags stay published, so a bad release can be pinned back to a known one. A push to main
-# deploys nothing.
+# macula-fleet instead pins <version>@sha256:<digest> from its own release workflow.
+# It has no placement for mcl-search today, so when one is added the pin is hand-placed in a
+# reviewed commit. The tags stay published, so a bad release can be pinned
+# back to a known one. A push to main deploys nothing.
 #
 # NO PATH FILTER, ON PURPOSE. A docs-only push should not rebuild the image, but
 # `paths-ignore' cannot be trusted with that: on the push
@@ -29,11 +30,11 @@ on:
     tags:     ['v*']
   workflow_dispatch:
 
-# ONE IMAGE BUILD IN FLIGHT PER REF. Every push to main builds and pushes
-# :latest; without this, three quick commits run three builds that finish in
-# whatever order the runners please, and :latest ends up being whichever
-# finished LAST, not whichever was pushed last -- watchtower then rolls the
-# fleet onto an older commit and flaps. A sibling service hit exactly that live.
+# ONE IMAGE BUILD IN FLIGHT PER REF. A push to main publishes :main and :<sha>,
+# and nothing follows those. A v* tag publishes :<semver>; this keeps one build
+# of a given ref in flight, so two builds of the same tag cannot race to publish
+# it. No box follows a tag: the fleet instead pins a @sha256 digest from its own
+# release workflow.
 concurrency:
   group: build-and-push-${{ github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}

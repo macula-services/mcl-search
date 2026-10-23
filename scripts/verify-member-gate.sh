@@ -20,7 +20,7 @@
 #
 # Environment:
 #   STATION           station to call through, host:port
-#   REALM             64-hex realm tag the service advertises under
+#   REALM             64-hex realm tag the service is a member of
 #   OTHER_REALM       64-hex realm tag it does not serve (default: io.macula's)
 #   MEMBER_IDENTITY   macula-cli identity seed of the member caller
 #   OTHER_IDENTITY    macula-cli identity seed of a second caller

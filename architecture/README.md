@@ -20,7 +20,7 @@ SearXNG must be reachable at `SEARXNG_URL` or the service refuses to start.
 | Realm member | Person or AI agent | A node on the mesh holding a realm-signed member token at the `member/email-verified` tier |
 | Service operator | Person | Runs the node beside SearXNG and supplies the realm, its public key, the pinned stations and `SEARXNG_URL` |
 | macula-realm | Macula infrastructure | Signs the member token macula checks before a call reaches the handler; its D25 grant names `mcl-search/web_search` |
-| Macula stations, mesh DHT | Macula infrastructure | The service dials out to the pinned stations over QUIC, and the mesh DHT takes the advertisement |
+| Macula stations, mesh DHT | Macula infrastructure | The service dials out to the pinned stations over QUIC, and the mesh DHT takes its own advertisement |
 | SearXNG | External system | Unmodified, on the same host: its JSON search API and `/healthz` on `127.0.0.1:8888`. It queries the upstream engines; this service talks to nothing else |
 
 SearXNG reaches the live web; this service reaches only SearXNG, on loopback,
@@ -42,8 +42,8 @@ macula before the handler runs.
 | macula SDK | library, `~> 16.0`, wire 1.0 | QUIC transport, the member token macula checks before a call reaches the handler, RPC dispatch to a provider that answers by name, and the signed records the mesh DHT holds |
 | Host environment | environment | `SEARXNG_URL`, `MCL_REALM`, `MCL_REALM_KEY`, `MACULA_STATION_SEEDS` and `MACULA_STATION_NODE_IDS` are required; `MCL_HEALTH_PORT` is 8497. The identity key is at `/etc/mcl/secrets/identity.key` |
 
-`config/sys.config.src` fixes the org, `mcl-search`, which prefixes the
-procedure and names it in the realm's D25 grant, and pins the realm key. `/health` is a loopback TCP listener
+`config/sys.config.src` fixes the org, `mcl-search`, which prefixes its own
+procedure names and names them in the realm's D25 grant, and pins the realm key. `/health` is a loopback TCP listener
 (`health_port` 8497, `health_ip` 127.0.0.1), reached by the image's healthcheck
 and `scripts/health.sh`, never from the mesh. There is no store, so the service
 mounts one volume, `/etc/mcl/secrets`, and nothing else. Its HTTP and JSON are

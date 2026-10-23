@@ -1,9 +1,9 @@
 %% @doc The mcl_om service contract for mcl-search.
 %%
 %% Web search over the live internet, for realm members, backed by SearXNG.
-%% One request-and-reply procedure, `mcl-search/web_search', gated to
-%% email-verified members of the realm (see web_search_member_gate). No store:
-%% it keeps no record of what anyone searched.
+%% One request-and-reply procedure of its own, `mcl-search/web_search', gated
+%% to email-verified members of the realm (see web_search_member_gate). No
+%% store: it keeps no record of what anyone searched.
 %%
 %% SIX CALLBACKS, ALL REQUIRED. mcl_om resolves them BY NAME at startup, on a
 %% live node, so a service that forgets one dies with `undef' where nobody is

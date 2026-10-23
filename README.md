@@ -49,7 +49,7 @@ It keeps no store and no record of what anyone searched, by design.
 `mcl_om` adds `mcl-search/info` and `mcl-search/get_limits` to every service,
 both open; `capabilities/0` is the list. `info` returns the name, version and
 description, the org and claim labels, node id, the macula and mcl_om versions,
-uptime, the health word and the names it advertises. `get_limits` returns the
+uptime, the health word and the names it advertises; `get_limits` returns the
 adaptive limits and the current window's counters. Both are public facts, open
 to any mesh caller.
 
@@ -143,9 +143,9 @@ signed digest, which a host pins to deploy; the semver tags stay published as th
 rollback archive. A push that changes only documentation builds no image
 (`scripts/is_image_push.sh`).
 
-The service's org, the `<org>` prefixing its procedure names (`<org>/<name>`), is
-this repository's name, fixed in `config/sys.config.src`. The realm's grant names
-it; a node without an org refuses to boot.
+The service's org, the `<org>` prefixing its own procedure names
+(`<org>/<name>`), is this repository's name, fixed in `config/sys.config.src`.
+The realm's grant names it; a node without an org refuses to boot.
 
 Two things CI cannot do for you, both of which have bitten:
 
@@ -153,8 +153,8 @@ Two things CI cannot do for you, both of which have bitten:
    the host with a bare `unauthorized` that names nothing. Check it after the
    first build. On ghcr the `org.opencontainers.image.source` label in the
    Containerfile is what links the package to the repository.
-2. The host needs `MCL_REALM` and the pinned station pair supplied from
-   somewhere they are not committed.
+2. The host needs `MCL_REALM` and the addresses of the stations it dials supplied
+   from somewhere they are not committed.
 
 ## The service contract
 
@@ -178,6 +178,12 @@ node.** Export `store_id/0` and `data_dir/0`; add the `evoq` adapter block to
 `{not_configured, event_store_adapter}` before any service code runs; and mount a
 volume in the compose file. A sibling service put two of three fleet nodes into a
 boot loop by doing the first and not the second.
+
+## Architecture
+
+The C4 model — system context, containers and components — is in
+[architecture/README.md](architecture/README.md), with the diagram sources in
+`architecture/c4_diagrams.py` and the rendered SVGs in `assets/`.
 
 ## Licence
 

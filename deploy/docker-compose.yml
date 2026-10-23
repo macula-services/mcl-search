@@ -34,8 +34,10 @@ services:
       # routine) would mint a new node id while the service looks healthy.
       - secrets:/etc/mcl/secrets
     labels:
-      # The fleet reconciles a signed release pinned by digest and does not use
-      # this. Kept for a host that runs watchtower by hand.
+      # macula-fleet instead pins a signed release by <version>@sha256:<digest>
+      # from its own release workflow, and runs no mcl-search today. No
+      # watchtower is used either; this label is kept for a host that runs one
+      # by hand.
       - "com.centurylinklabs.watchtower.enable=true"
     environment:
       # No default. A service that guesses its realm announces itself where

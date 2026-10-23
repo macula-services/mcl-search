@@ -109,7 +109,7 @@
 <text class="t-rel" x="26" y="400" text-anchor="middle" transform="rotate(-90 26 400)">resolved by name at boot</text>
 <path class="edge" d="M160 662V728" marker-end="url(#a)"/>
 <text class="t-rel" x="168" y="690">reads the identity key</text>
-<text class="t-desc" x="40" y="866">config/sys.config.src fixes the org, mcl-search, which prefixes the procedure and the D25 grant, and pins</text>
+<text class="t-desc" x="40" y="866">config/sys.config.src fixes the org, mcl-search, which prefixes its own procedure and the D25 grant, and pins</text>
 <text class="t-desc" x="40" y="884">the realm key. There is no store, so the service mounts one volume,</text>
 <text class="t-desc" x="40" y="902">/etc/mcl/secrets, and nothing else. Its JSON and HTTP are OTP's own (inets/httpc and stdlib json): no other dependency.</text>
 <rect class="b-sys" x="24" y="930" width="22" height="14" rx="3"/>
