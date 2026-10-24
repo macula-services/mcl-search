@@ -154,7 +154,7 @@ def context():
     d.edge("M800 134V178H550V200")
     d.text("t-rel", 690, 166, "deploys; sets SEARXNG_URL")
     d.edge("M430 370V380H200V420"); d.text("t-rel", 240, 396, "boot claim, D25 grant")
-    d.edge("M500 370V420"); d.text("t-rel", 508, 400, "advertises its procedure")
+    d.edge("M500 370V420"); d.text("t-rel", 508, 400, "advertises web_search")
     d.edge("M570 370V390H800V420")
     d.text("t-rel", 810, 404, "GET /search?format=json;")
     d.text("t-rel", 810, 418, "GET /healthz for health")

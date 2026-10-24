@@ -93,7 +93,7 @@
 <path class="edge" d="M430 370V380H200V420" marker-end="url(#a)"/>
 <text class="t-rel" x="240" y="396">boot claim, D25 grant</text>
 <path class="edge" d="M500 370V420" marker-end="url(#a)"/>
-<text class="t-rel" x="508" y="400">advertises its procedure</text>
+<text class="t-rel" x="508" y="400">advertises web_search</text>
 <path class="edge" d="M570 370V390H800V420" marker-end="url(#a)"/>
 <text class="t-rel" x="810" y="404">GET /search?format=json;</text>
 <text class="t-rel" x="810" y="418">GET /healthz for health</text>
