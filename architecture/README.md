@@ -4,7 +4,8 @@
 of, without reading it.*
 
 **Status: `mcl-search/web_search` is the service's own procedure, and the only
-one; release 0.1.0.** The service boots, joins the mesh, advertises it under the
+one; version 0.1.0, not yet released** (no tag exists; the registry holds `:main`
+and per-commit tags only). The service boots, joins the mesh, advertises it under the
 member policy, and answers `/health` on `127.0.0.1:8497`. `mcl_om` adds
 `mcl-search/info` and `mcl-search/get_limits` to every service, both open;
 `capabilities/0` is the list. It keeps no store and no record of a query.

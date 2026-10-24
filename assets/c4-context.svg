@@ -90,13 +90,13 @@
 <text class="t-rel" x="208" y="166">with a member token</text>
 <path class="edge" d="M800 134V178H550V200" marker-end="url(#a)"/>
 <text class="t-rel" x="690" y="166">deploys; sets SEARXNG_URL</text>
-<path class="edge" d="M430 350V380H200V420" marker-end="url(#a)"/>
-<text class="t-rel" x="240" y="372">boot claim, D25 grant</text>
-<path class="edge" d="M500 350V420" marker-end="url(#a)"/>
-<text class="t-rel" x="508" y="404">advertises mcl-search/web_search</text>
-<path class="edge" d="M570 350V390H800V420" marker-end="url(#a)"/>
-<text class="t-rel" x="578" y="366">GET /search?format=json;</text>
-<text class="t-rel" x="578" y="382">GET /healthz for health</text>
+<path class="edge" d="M430 370V380H200V420" marker-end="url(#a)"/>
+<text class="t-rel" x="240" y="396">boot claim, D25 grant</text>
+<path class="edge" d="M500 370V420" marker-end="url(#a)"/>
+<text class="t-rel" x="508" y="400">advertises its procedure</text>
+<path class="edge" d="M570 370V390H800V420" marker-end="url(#a)"/>
+<text class="t-rel" x="810" y="404">GET /search?format=json;</text>
+<text class="t-rel" x="810" y="418">GET /healthz for health</text>
 <text class="t-desc" x="40" y="600">SearXNG reaches the live web; this service reaches only SearXNG, on loopback, and keeps no</text>
 <text class="t-desc" x="40" y="618">record of a query. A caller without a member token is refused by macula before the handler runs.</text>
 <rect class="b-sys" x="24" y="660" width="22" height="14" rx="3"/>
